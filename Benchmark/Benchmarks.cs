@@ -54,7 +54,7 @@ namespace StringBenchmarks
         public void UsingSpan()
         {
             var data = "Hello, Sir!".ToCharArray();
-            var concatinations = new[]
+            var concatenations = new[]
             {
                 "I",
                 "am",
@@ -67,7 +67,7 @@ namespace StringBenchmarks
             };
 
             // Calculate buffer length
-            var bufferLength = data.Length + concatinations.Sum(c => c.Length) + concatinations.Length;
+            var bufferLength = data.Length + concatenations.Sum(c => c.Length) + concatenations.Length;
 
             var buffer = new char[bufferLength];
             var bufferSpan = buffer.AsSpan();
@@ -75,12 +75,12 @@ namespace StringBenchmarks
             data.CopyTo(bufferSpan);
             var whereIsMyBufferActuallyAt = data.Length;
 
-            for (var i = 0; i < concatinations.Length; i++)
+            for (var i = 0; i < concatenations.Length; i++)
             {
                 bufferSpan[whereIsMyBufferActuallyAt] = ' ';
                 whereIsMyBufferActuallyAt++;
 
-                var unit = concatinations[i];
+                var unit = concatenations[i];
                 unit.AsSpan().CopyTo(bufferSpan.Slice(whereIsMyBufferActuallyAt));
                 whereIsMyBufferActuallyAt += unit.Length;
             }
