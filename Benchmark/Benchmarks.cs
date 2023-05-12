@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using System.Linq;
 using System.Text;
 
 namespace StringBenchmarks
@@ -11,20 +12,22 @@ namespace StringBenchmarks
         {
             var data = "Hello, Sir!";
 
-            var queue = new Queue<string>();
-            queue.Enqueue("I");
-            queue.Enqueue("am");
-            queue.Enqueue("Matthew");
-            queue.Enqueue("and");
-            queue.Enqueue("I");
-            queue.Enqueue("am");
-            queue.Enqueue("a");
-            queue.Enqueue("dev");
-
-            while (queue.Count != 0)
+            var concatenations = new[]
             {
-                data += " ";
-                data += queue.Dequeue();
+                "I",
+                "am",
+                "Matthew",
+                "and",
+                "I",
+                "am",
+                "a",
+                "dev"
+            };
+
+            for (var i = 0; i < concatenations.Length; i++)
+            {
+                data += ' ';
+                data += concatenations[i];
             }
         }
 
@@ -32,21 +35,22 @@ namespace StringBenchmarks
         public void UsingStringBuilder()
         {
             var data = new StringBuilder("Hello, Sir!");
-
-            var queue = new Queue<string>();
-            queue.Enqueue("I");
-            queue.Enqueue("am");
-            queue.Enqueue("Matthew");
-            queue.Enqueue("and");
-            queue.Enqueue("I");
-            queue.Enqueue("am");
-            queue.Enqueue("a");
-            queue.Enqueue("dev");
-
-            while (queue.Count != 0)
+            var concatenations = new[]
             {
-                data.Append(" ");
-                data.Append(queue.Dequeue());
+                "I",
+                "am",
+                "Matthew",
+                "and",
+                "I",
+                "am",
+                "a",
+                "dev"
+            };
+
+            for(var i = 0; i < concatenations.Length; i++)
+            {
+                data.Append(' ');
+                data.Append(concatenations[i]);
             }
         }
 
