@@ -47,7 +47,7 @@ namespace StringBenchmarks
                 "dev"
             };
 
-            for(var i = 0; i < concatenations.Length; i++)
+            for (var i = 0; i < concatenations.Length; i++)
             {
                 data.Append(' ');
                 data.Append(concatenations[i]);
@@ -71,7 +71,8 @@ namespace StringBenchmarks
             };
 
             // Calculate buffer length
-            var bufferLength = data.Length + concatenations.Sum(c => c.Length) + concatenations.Length;
+            var bufferLength = data.Length + concatenations.Length;
+            for(var i = 0; i < concatenations.Length; i++) bufferLength += concatenations[i].Length;
 
             var buffer = new char[bufferLength];
             var bufferSpan = buffer.AsSpan();
